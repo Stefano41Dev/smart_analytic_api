@@ -31,6 +31,7 @@ public class SaleServiceImpl implements SaleService {
     private final ClientRepository clientRepository;
     private final ProductRepository productRepository;
 
+    @Override
     public SaleDtoResponse create(SaleDtoRequest request) {
         validateDetails(request.saleDetails());
         Sale sale = Sale.builder().client(getClient(request.clientId())).createdAd(LocalDateTime.now())
@@ -40,11 +41,13 @@ public class SaleServiceImpl implements SaleService {
     }
 
     @Transactional(readOnly = true)
+    @Override
     public List<SaleDtoResponse> findAll() { return repository.findAll().stream().map(this::toResponse).toList(); }
 
     @Transactional(readOnly = true)
+    @Override
     public SaleDtoResponse findById(Long id) { return toResponse(get(id)); }
-
+    @Override
     public SaleDtoResponse update(Long id, SaleDtoRequest request) {
         validateDetails(request.saleDetails());
         Sale sale = get(id);

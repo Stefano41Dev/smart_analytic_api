@@ -2,6 +2,7 @@ package com.stefano.service.impl;
 
 import com.stefano.dto.brand.BrandDtoRequest;
 import com.stefano.dto.brand.BrandDtoResponse;
+import com.stefano.mapper.BrandMapper;
 import com.stefano.models.Brand;
 import com.stefano.repository.BrandRepository;
 import com.stefano.service.BrandService;
@@ -14,27 +15,40 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class BrandServiceImpl implements BrandService {
     private final BrandRepository repository;
+    private final BrandMapper brandMapper;
+
+    @Override
     public BrandDtoResponse create(BrandDtoRequest request) {
-        return toResponse(repository.save(Brand.builder()
+        return brandMapper.toResponse(repository.save(
+                Brand.builder()
                 .name(request.name())
                 .build()));
     }
+
+    @Override
     public List<BrandDtoResponse> findAll() {
-        return repository.findAll().stream().map(this::toResponse).toList();
+        return repository.findAll().stream().map(brandMapper::toResponse).toList();
     }
+
+    @Override
     public BrandDtoResponse findById(Long id) {
-        return toResponse(get(id));
+        return brandMapper.toResponse(get(id));
     }
+
+    @Override
     public BrandDtoResponse update(Long id, BrandDtoRequest request) {
-        Brand brand = get(id); brand.setName(request.name()); return toResponse(repository.save(brand));
+        Brand brand = get(id);
+        brand.setName(request.name());
+        return brandMapper.toResponse(repository.save(brand));
     }
+
+    @Override
     public void delete(Long id) {
         repository.delete(get(id));
     }
 
-    private Brand get(Long id) { return repository.findById(id).orElseThrow(() -> new EntityNotFoundException("Brand no encontrada: " + id)); }
-    private BrandDtoResponse toResponse(Brand brand) { return BrandDtoResponse.builder()
-            .id(brand.getId())
-            .name(brand.getName())
-            .build(); }
+    private Brand get(Long id) {
+        return repository.findById(id).orElseThrow(() -> new EntityNotFoundException("Brand no encontrada: " + id));
+    }
+
 }

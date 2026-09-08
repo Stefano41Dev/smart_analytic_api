@@ -2,6 +2,7 @@ package com.stefano.service.impl;
 
 import com.stefano.dto.product.ProductDtoRequest;
 import com.stefano.dto.product.ProductDtoResponse;
+import com.stefano.mapper.ProductMapper;
 import com.stefano.models.Brand;
 import com.stefano.models.Category;
 import com.stefano.models.Product;
@@ -20,17 +21,23 @@ public class ProductServiceImpl implements ProductService {
     private final ProductRepository repository;
     private final BrandRepository brandRepository;
     private final CategoryRepository categoryRepository;
-
+    private final ProductMapper productMapper;
+    @Override
     public ProductDtoResponse create(ProductDtoRequest request) {
-        return toResponse(repository.save(toEntity(request)));
-    }
+        Product product = productMapper.toEntity(request);
 
+        product.setBrand(getBrand(request.brandId()));
+        product.setCategory(getCategory(request.categoryId()));
+
+        return productMapper.toResponse(repository.save(product));
+    }
+    @Override
     public List<ProductDtoResponse> findAll() {
-        return repository.findAll().stream().map(this::toResponse).toList();
+        return repository.findAll().stream().map(productMapper::toResponse).toList();
     }
-
-    public ProductDtoResponse findById(Long id) { return toResponse(get(id)); }
-
+    @Override
+    public ProductDtoResponse findById(Long id) { return productMapper.toResponse(get(id)); }
+    @Override
     public ProductDtoResponse update(Long id, ProductDtoRequest request) {
         Product product = get(id);
         product.setName(request.name());
@@ -39,15 +46,11 @@ public class ProductServiceImpl implements ProductService {
         product.setPrice(request.price());
         product.setStock(request.stock());
         product.setSku(request.sku());
-        return toResponse(repository.save(product));
+        return productMapper.toResponse(repository.save(product));
     }
+    @Override
     public void delete(Long id) { repository.delete(get(id)); }
 
-    private Product toEntity(ProductDtoRequest request) {
-        return Product.builder().name(request.name()).brand(getBrand(request.brandId()))
-                .category(getCategory(request.categoryId())).price(request.price())
-                .stock(request.stock()).sku(request.sku()).build();
-    }
     private Product get(Long id) {
         return repository.findById(id).orElseThrow(() -> new EntityNotFoundException("Producto no encontrado: " + id));
     }
@@ -59,9 +62,5 @@ public class ProductServiceImpl implements ProductService {
         return categoryRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Categoría no encontrada: " + id));
     }
 
-    private ProductDtoResponse toResponse(Product product) {
-        return ProductDtoResponse.builder().id(product.getId()).name(product.getName())
-                .brandId(product.getBrand().getId()).categoryId(product.getCategory().getId())
-                .price(product.getPrice()).stock(product.getStock()).sku(product.getSku()).build();
-    }
+
 }
