@@ -2,11 +2,11 @@ package com.stefano.service.impl;
 
 import com.stefano.dto.category.CategoryDtoRequest;
 import com.stefano.dto.category.CategoryDtoResponse;
+import com.stefano.exception.ResourceNotFoundException;
 import com.stefano.mapper.CategoryMapper;
 import com.stefano.models.Category;
 import com.stefano.repository.CategoryRepository;
 import com.stefano.service.CategoryService;
-import jakarta.persistence.EntityNotFoundException;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -42,7 +42,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     private Category get(Long id) {
-        return repository.findById(id).orElseThrow(() -> new EntityNotFoundException("Categoría no encontrada: " + id));
+        return repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Categoría no encontrada: " + id));
     }
 
 }

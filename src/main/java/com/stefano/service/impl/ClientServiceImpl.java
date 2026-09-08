@@ -2,11 +2,11 @@ package com.stefano.service.impl;
 
 import com.stefano.dto.client.ClientDtoRequest;
 import com.stefano.dto.client.ClientDtoResponse;
+import com.stefano.exception.ResourceNotFoundException;
 import com.stefano.mapper.ClientMapper;
 import com.stefano.models.Client;
 import com.stefano.repository.ClientRepository;
 import com.stefano.service.ClientService;
-import jakarta.persistence.EntityNotFoundException;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -44,7 +44,7 @@ public class ClientServiceImpl implements ClientService {
     }
 
     private Client get(Long id) {
-        return repository.findById(id).orElseThrow(() -> new EntityNotFoundException("Cliente no encontrado: " + id));
+        return repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Cliente no encontrado: " + id));
     }
 
 

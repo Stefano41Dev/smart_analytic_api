@@ -2,11 +2,11 @@ package com.stefano.service.impl;
 
 import com.stefano.dto.brand.BrandDtoRequest;
 import com.stefano.dto.brand.BrandDtoResponse;
+import com.stefano.exception.ResourceNotFoundException;
 import com.stefano.mapper.BrandMapper;
 import com.stefano.models.Brand;
 import com.stefano.repository.BrandRepository;
 import com.stefano.service.BrandService;
-import jakarta.persistence.EntityNotFoundException;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -48,7 +48,7 @@ public class BrandServiceImpl implements BrandService {
     }
 
     private Brand get(Long id) {
-        return repository.findById(id).orElseThrow(() -> new EntityNotFoundException("Brand no encontrada: " + id));
+        return repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Brand no encontrada: " + id));
     }
 
 }

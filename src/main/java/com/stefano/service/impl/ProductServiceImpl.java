@@ -2,6 +2,7 @@ package com.stefano.service.impl;
 
 import com.stefano.dto.product.ProductDtoRequest;
 import com.stefano.dto.product.ProductDtoResponse;
+import com.stefano.exception.ResourceNotFoundException;
 import com.stefano.mapper.ProductMapper;
 import com.stefano.models.Brand;
 import com.stefano.models.Category;
@@ -52,14 +53,14 @@ public class ProductServiceImpl implements ProductService {
     public void delete(Long id) { repository.delete(get(id)); }
 
     private Product get(Long id) {
-        return repository.findById(id).orElseThrow(() -> new EntityNotFoundException("Producto no encontrado: " + id));
+        return repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Producto no encontrado: " + id));
     }
 
     private Brand getBrand(Long id) {
-        return brandRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Marca no encontrada: " + id));
+        return brandRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Marca no encontrada: " + id));
     }
     private Category getCategory(Long id) {
-        return categoryRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Categoría no encontrada: " + id));
+        return categoryRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Categoría no encontrada: " + id));
     }
 
 

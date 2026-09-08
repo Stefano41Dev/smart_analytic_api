@@ -4,6 +4,8 @@ import com.stefano.dto.sale.SaleDetailDtoRequest;
 import com.stefano.dto.sale.SaleDetailDtoResponse;
 import com.stefano.dto.sale.SaleDtoRequest;
 import com.stefano.dto.sale.SaleDtoResponse;
+import com.stefano.exception.BusinessException;
+import com.stefano.exception.ResourceNotFoundException;
 import com.stefano.models.Client;
 import com.stefano.models.Product;
 import com.stefano.models.Sale;
@@ -12,7 +14,6 @@ import com.stefano.repository.ClientRepository;
 import com.stefano.repository.ProductRepository;
 import com.stefano.repository.SaleRepository;
 import com.stefano.service.SaleService;
-import jakarta.persistence.EntityNotFoundException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.LocalDateTime;
@@ -34,8 +35,14 @@ public class SaleServiceImpl implements SaleService {
     @Override
     public SaleDtoResponse create(SaleDtoRequest request) {
         validateDetails(request.saleDetails());
-        Sale sale = Sale.builder().client(getClient(request.clientId())).createdAd(LocalDateTime.now())
-                .subtotal(BigDecimal.ZERO).igv(BigDecimal.ZERO).total(BigDecimal.ZERO).saleDetails(new ArrayList<>()).build();
+        Sale sale = Sale.builder()
+                .client(getClient(request.clientId()))
+                .createdAd(LocalDateTime.now())
+                .subtotal(BigDecimal.ZERO)
+                .igv(BigDecimal.ZERO)
+                .total(BigDecimal.ZERO)
+                .saleDetails(new ArrayList<>())
+                .build();
         replaceDetails(sale, request.saleDetails());
         return toResponse(repository.save(sale));
     }
@@ -70,26 +77,34 @@ public class SaleServiceImpl implements SaleService {
     private SaleDetail createDetail(Sale sale, SaleDetailDtoRequest request) {
         Product product = getProduct(request.productId());
         BigDecimal priceUnit = product.getPrice();
-        BigDecimal subtotal = priceUnit.multiply(BigDecimal.valueOf(request.quantity())).setScale(2, RoundingMode.HALF_UP);
-        BigDecimal total = subtotal.add(subtotal.multiply(IGV_RATE)).setScale(2, RoundingMode.HALF_UP);
-        return SaleDetail.builder().sale(sale).product(product).quantity(request.quantity()).priceUnit(priceUnit)
-                .subtotal(subtotal).total(total).build();
+        BigDecimal subtotal = priceUnit.multiply(BigDecimal.valueOf(request.quantity()))
+                .setScale(2, RoundingMode.HALF_UP);
+        BigDecimal total = subtotal.add(subtotal.multiply(IGV_RATE))
+                .setScale(2, RoundingMode.HALF_UP);
+        return SaleDetail.builder()
+                .sale(sale)
+                .product(product)
+                .quantity(request.quantity())
+                .priceUnit(priceUnit)
+                .subtotal(subtotal)
+                .total(total)
+                .build();
     }
 
     private void validateDetails(List<SaleDetailDtoRequest> details) {
-        if (details == null || details.isEmpty()) throw new IllegalArgumentException("Una venta debe tener al menos un detalle");
+        if (details == null || details.isEmpty()) throw new BusinessException("Una venta debe tener al menos un detalle");
         if (details.stream().anyMatch(detail -> detail.productId() == null || detail.quantity() == null || detail.quantity() <= 0))
-            throw new IllegalArgumentException("Cada detalle debe indicar producto y una cantidad mayor a cero");
+            throw new BusinessException("Cada detalle debe indicar producto y una cantidad mayor a cero");
     }
 
     private Sale get(Long id) {
-        return repository.findById(id).orElseThrow(() -> new EntityNotFoundException("Venta no encontrada: " + id));
+        return repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Venta no encontrada: " + id));
     }
     private Client getClient(Long id) {
-        return clientRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Cliente no encontrado: " + id));
+        return clientRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Cliente no encontrado: " + id));
     }
     private Product getProduct(Long id) {
-        return productRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Producto no encontrado: " + id));
+        return productRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Producto no encontrado: " + id));
     }
     private SaleDtoResponse toResponse(Sale sale) {
         return SaleDtoResponse.builder()
