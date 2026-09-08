@@ -1,11 +1,11 @@
 package com.stefano.service.impl;
 
 import com.stefano.dto.sale.SaleDetailDtoRequest;
-import com.stefano.dto.sale.SaleDetailDtoResponse;
 import com.stefano.dto.sale.SaleDtoRequest;
 import com.stefano.dto.sale.SaleDtoResponse;
 import com.stefano.exception.BusinessException;
 import com.stefano.exception.ResourceNotFoundException;
+import com.stefano.mapper.SaleMapper;
 import com.stefano.models.Client;
 import com.stefano.models.Product;
 import com.stefano.models.Sale;
@@ -31,7 +31,7 @@ public class SaleServiceImpl implements SaleService {
     private final SaleRepository repository;
     private final ClientRepository clientRepository;
     private final ProductRepository productRepository;
-
+    private final SaleMapper saleMapper;
     @Override
     public SaleDtoResponse create(SaleDtoRequest request) {
         validateDetails(request.saleDetails());
@@ -44,23 +44,23 @@ public class SaleServiceImpl implements SaleService {
                 .saleDetails(new ArrayList<>())
                 .build();
         replaceDetails(sale, request.saleDetails());
-        return toResponse(repository.save(sale));
+        return saleMapper.toResponse(repository.save(sale));
     }
 
     @Transactional(readOnly = true)
     @Override
-    public List<SaleDtoResponse> findAll() { return repository.findAll().stream().map(this::toResponse).toList(); }
+    public List<SaleDtoResponse> findAll() { return repository.findAll().stream().map(saleMapper::toResponse).toList(); }
 
     @Transactional(readOnly = true)
     @Override
-    public SaleDtoResponse findById(Long id) { return toResponse(get(id)); }
+    public SaleDtoResponse findById(Long id) { return saleMapper.toResponse(get(id)); }
     @Override
     public SaleDtoResponse update(Long id, SaleDtoRequest request) {
         validateDetails(request.saleDetails());
         Sale sale = get(id);
         sale.setClient(getClient(request.clientId()));
         replaceDetails(sale, request.saleDetails());
-        return toResponse(repository.save(sale));
+        return saleMapper.toResponse(repository.save(sale));
     }
 
     private void replaceDetails(Sale sale, List<SaleDetailDtoRequest> requests) {
@@ -93,6 +93,7 @@ public class SaleServiceImpl implements SaleService {
 
     private void validateDetails(List<SaleDetailDtoRequest> details) {
         if (details == null || details.isEmpty()) throw new BusinessException("Una venta debe tener al menos un detalle");
+
         if (details.stream().anyMatch(detail -> detail.productId() == null || detail.quantity() == null || detail.quantity() <= 0))
             throw new BusinessException("Cada detalle debe indicar producto y una cantidad mayor a cero");
     }
@@ -105,18 +106,5 @@ public class SaleServiceImpl implements SaleService {
     }
     private Product getProduct(Long id) {
         return productRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Producto no encontrado: " + id));
-    }
-    private SaleDtoResponse toResponse(Sale sale) {
-        return SaleDtoResponse.builder()
-                .id(sale.getId())
-                .clientId(sale.getClient().getId())
-                .subtotal(sale.getSubtotal())
-                .igv(sale.getIgv()).total(sale.getTotal())
-                .createdAd(sale.getCreatedAd())
-                .saleDetails(sale.getSaleDetails().stream().map(this::toDetailResponse).toList()).build();
-    }
-    private SaleDetailDtoResponse toDetailResponse(SaleDetail detail) {
-        return SaleDetailDtoResponse.builder().id(detail.getId()).productId(detail.getProduct().getId())
-                .quantity(detail.getQuantity()).priceUnit(detail.getPriceUnit()).subtotal(detail.getSubtotal()).total(detail.getTotal()).build();
     }
 }
