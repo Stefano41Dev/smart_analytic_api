@@ -1,8 +1,8 @@
 package com.stefano.service.impl;
 
-import com.stefano.dto.product.ProductDtoRequest;
-import com.stefano.dto.product.ProductDtoResponse;
-import com.stefano.exception.ResourceNotFoundException;
+import com.stefano.models.dto.product.ProductDtoRequest;
+import com.stefano.models.dto.product.ProductDtoResponse;
+import com.stefano.config.exception.ResourceNotFoundException;
 import com.stefano.mapper.ProductMapper;
 import com.stefano.models.Brand;
 import com.stefano.models.Category;
@@ -11,7 +11,7 @@ import com.stefano.repository.BrandRepository;
 import com.stefano.repository.CategoryRepository;
 import com.stefano.repository.ProductRepository;
 import com.stefano.service.ProductService;
-import jakarta.persistence.EntityNotFoundException;
+
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

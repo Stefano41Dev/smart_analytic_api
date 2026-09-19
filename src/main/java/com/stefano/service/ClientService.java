@@ -1,7 +1,7 @@
 package com.stefano.service;
 
-import com.stefano.dto.client.ClientDtoRequest;
-import com.stefano.dto.client.ClientDtoResponse;
+import com.stefano.models.dto.client.ClientDtoRequest;
+import com.stefano.models.dto.client.ClientDtoResponse;
 import java.util.List;
 
 public interface ClientService {

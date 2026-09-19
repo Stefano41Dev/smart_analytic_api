@@ -1,6 +1,6 @@
 package com.stefano.mapper;
 
-import com.stefano.dto.brand.BrandDtoResponse;
+import com.stefano.models.dto.brand.BrandDtoResponse;
 import com.stefano.models.Brand;
 import org.springframework.stereotype.Component;
 

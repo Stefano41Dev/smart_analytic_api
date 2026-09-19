@@ -1,7 +1,7 @@
 package com.stefano.mapper;
 
-import com.stefano.dto.client.ClientDtoRequest;
-import com.stefano.dto.client.ClientDtoResponse;
+import com.stefano.models.dto.client.ClientDtoRequest;
+import com.stefano.models.dto.client.ClientDtoResponse;
 import com.stefano.models.Client;
 import org.springframework.stereotype.Component;
 

@@ -1,4 +1,4 @@
-package com.stefano.dto.sale;
+package com.stefano.models.dto.sale;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;

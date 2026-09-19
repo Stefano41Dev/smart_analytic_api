@@ -1,7 +1,7 @@
 package com.stefano.service;
 
-import com.stefano.dto.category.CategoryDtoRequest;
-import com.stefano.dto.category.CategoryDtoResponse;
+import com.stefano.models.dto.category.CategoryDtoRequest;
+import com.stefano.models.dto.category.CategoryDtoResponse;
 import java.util.List;
 
 public interface CategoryService {

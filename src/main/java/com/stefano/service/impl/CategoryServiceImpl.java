@@ -1,8 +1,8 @@
 package com.stefano.service.impl;
 
-import com.stefano.dto.category.CategoryDtoRequest;
-import com.stefano.dto.category.CategoryDtoResponse;
-import com.stefano.exception.ResourceNotFoundException;
+import com.stefano.models.dto.category.CategoryDtoRequest;
+import com.stefano.models.dto.category.CategoryDtoResponse;
+import com.stefano.config.exception.ResourceNotFoundException;
 import com.stefano.mapper.CategoryMapper;
 import com.stefano.models.Category;
 import com.stefano.repository.CategoryRepository;

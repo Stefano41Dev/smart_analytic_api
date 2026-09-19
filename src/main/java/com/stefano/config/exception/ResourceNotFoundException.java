@@ -1,4 +1,4 @@
-package com.stefano.exception;
+package com.stefano.config.exception;
 
 public class ResourceNotFoundException extends RuntimeException {
     public ResourceNotFoundException(String message) {

@@ -1,7 +1,7 @@
 package com.stefano.controller;
 
-import com.stefano.dto.category.CategoryDtoRequest;
-import com.stefano.dto.category.CategoryDtoResponse;
+import com.stefano.models.dto.category.CategoryDtoRequest;
+import com.stefano.models.dto.category.CategoryDtoResponse;
 import com.stefano.service.CategoryService;
 import java.util.List;
 

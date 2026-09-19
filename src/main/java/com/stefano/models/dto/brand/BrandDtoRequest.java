@@ -1,4 +1,4 @@
-package com.stefano.dto.brand;
+package com.stefano.models.dto.brand;
 
 import lombok.Builder;
 

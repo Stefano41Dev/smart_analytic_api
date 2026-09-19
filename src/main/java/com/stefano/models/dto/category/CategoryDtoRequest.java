@@ -1,4 +1,4 @@
-package com.stefano.dto.category;
+package com.stefano.models.dto.category;
 
 import lombok.Builder;
 

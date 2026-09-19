@@ -1,7 +1,7 @@
 package com.stefano.controller;
 
-import com.stefano.dto.brand.BrandDtoRequest;
-import com.stefano.dto.brand.BrandDtoResponse;
+import com.stefano.models.dto.brand.BrandDtoRequest;
+import com.stefano.models.dto.brand.BrandDtoResponse;
 import com.stefano.service.BrandService;
 import java.util.List;
 

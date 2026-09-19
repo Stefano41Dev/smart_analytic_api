@@ -1,7 +1,7 @@
 package com.stefano.service;
 
-import com.stefano.dto.brand.BrandDtoRequest;
-import com.stefano.dto.brand.BrandDtoResponse;
+import com.stefano.models.dto.brand.BrandDtoRequest;
+import com.stefano.models.dto.brand.BrandDtoResponse;
 import java.util.List;
 
 public interface BrandService {

@@ -1,10 +1,10 @@
 package com.stefano.service.impl;
 
-import com.stefano.dto.sale.SaleDetailDtoRequest;
-import com.stefano.dto.sale.SaleDtoRequest;
-import com.stefano.dto.sale.SaleDtoResponse;
-import com.stefano.exception.BusinessException;
-import com.stefano.exception.ResourceNotFoundException;
+import com.stefano.models.dto.sale.SaleDetailDtoRequest;
+import com.stefano.models.dto.sale.SaleDtoRequest;
+import com.stefano.models.dto.sale.SaleDtoResponse;
+import com.stefano.config.exception.BusinessException;
+import com.stefano.config.exception.ResourceNotFoundException;
 import com.stefano.mapper.SaleMapper;
 import com.stefano.models.Client;
 import com.stefano.models.Product;

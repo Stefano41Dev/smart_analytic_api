@@ -1,7 +1,7 @@
 package com.stefano.controller;
 
-import com.stefano.dto.client.ClientDtoRequest;
-import com.stefano.dto.client.ClientDtoResponse;
+import com.stefano.models.dto.client.ClientDtoRequest;
+import com.stefano.models.dto.client.ClientDtoResponse;
 import com.stefano.service.ClientService;
 import java.util.List;
 

@@ -1,7 +1,7 @@
 package com.stefano.mapper;
 
-import com.stefano.dto.sale.SaleDetailDtoResponse;
-import com.stefano.dto.sale.SaleDtoResponse;
+import com.stefano.models.dto.sale.SaleDetailDtoResponse;
+import com.stefano.models.dto.sale.SaleDtoResponse;
 import com.stefano.models.Sale;
 import com.stefano.models.SaleDetail;
 import org.springframework.stereotype.Component;

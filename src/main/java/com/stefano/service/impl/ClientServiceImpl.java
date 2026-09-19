@@ -1,8 +1,8 @@
 package com.stefano.service.impl;
 
-import com.stefano.dto.client.ClientDtoRequest;
-import com.stefano.dto.client.ClientDtoResponse;
-import com.stefano.exception.ResourceNotFoundException;
+import com.stefano.models.dto.client.ClientDtoRequest;
+import com.stefano.models.dto.client.ClientDtoResponse;
+import com.stefano.config.exception.ResourceNotFoundException;
 import com.stefano.mapper.ClientMapper;
 import com.stefano.models.Client;
 import com.stefano.repository.ClientRepository;

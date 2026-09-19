@@ -1,9 +1,9 @@
-package com.stefano.dto.category;
+package com.stefano.models.dto.brand;
 
 import lombok.Builder;
 
 @Builder
-public record CategoryDtoResponse(
+public record BrandDtoResponse(
         Long id,
         String name
 ) {

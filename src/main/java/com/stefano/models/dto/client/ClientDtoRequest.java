@@ -1,10 +1,9 @@
-package com.stefano.dto.client;
+package com.stefano.models.dto.client;
 
 import lombok.Builder;
 
 @Builder
-public record ClientDtoResponse(
-        Long id,
+public record ClientDtoRequest(
         String names,
         String lastnames,
         String dni,

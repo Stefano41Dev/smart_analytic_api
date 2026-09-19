@@ -1,7 +1,7 @@
 package com.stefano.service;
 
-import com.stefano.dto.product.ProductDtoRequest;
-import com.stefano.dto.product.ProductDtoResponse;
+import com.stefano.models.dto.product.ProductDtoRequest;
+import com.stefano.models.dto.product.ProductDtoResponse;
 import java.util.List;
 
 public interface ProductService {

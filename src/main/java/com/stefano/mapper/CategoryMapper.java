@@ -1,6 +1,6 @@
 package com.stefano.mapper;
 
-import com.stefano.dto.category.CategoryDtoResponse;
+import com.stefano.models.dto.category.CategoryDtoResponse;
 import com.stefano.models.Category;
 import org.springframework.stereotype.Component;
 

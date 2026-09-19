@@ -1,4 +1,4 @@
-package com.stefano.exception.dto;
+package com.stefano.config.exception.dto;
 
 import java.time.LocalDateTime;
 

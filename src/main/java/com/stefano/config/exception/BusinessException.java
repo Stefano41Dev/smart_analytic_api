@@ -1,4 +1,4 @@
-package com.stefano.exception;
+package com.stefano.config.exception;
 
 public class BusinessException extends RuntimeException {
     public BusinessException(String message) {

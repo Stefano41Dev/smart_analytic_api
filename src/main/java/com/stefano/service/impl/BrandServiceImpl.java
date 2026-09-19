@@ -1,8 +1,8 @@
 package com.stefano.service.impl;
 
-import com.stefano.dto.brand.BrandDtoRequest;
-import com.stefano.dto.brand.BrandDtoResponse;
-import com.stefano.exception.ResourceNotFoundException;
+import com.stefano.models.dto.brand.BrandDtoRequest;
+import com.stefano.models.dto.brand.BrandDtoResponse;
+import com.stefano.config.exception.ResourceNotFoundException;
 import com.stefano.mapper.BrandMapper;
 import com.stefano.models.Brand;
 import com.stefano.repository.BrandRepository;

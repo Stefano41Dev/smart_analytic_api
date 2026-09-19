@@ -1,6 +1,6 @@
-package com.stefano.exception;
+package com.stefano.config.exception;
 
-import com.stefano.exception.dto.ErrorDto;
+import com.stefano.config.exception.dto.ErrorDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;

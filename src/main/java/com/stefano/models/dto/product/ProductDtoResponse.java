@@ -1,4 +1,4 @@
-package com.stefano.dto.product;
+package com.stefano.models.dto.product;
 
 import java.math.BigDecimal;
 import lombok.Builder;
