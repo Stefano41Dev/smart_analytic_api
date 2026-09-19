@@ -21,4 +21,10 @@ public class IAController {
     ){
         return ResponseEntity.ok(iaService.ask(question));
     }
+    @PostMapping("/analytic")
+    public ResponseEntity<String> analytic (
+            @RequestBody String question
+    ){
+        return ResponseEntity.ok(iaService.analyze(question));
+    }
 }

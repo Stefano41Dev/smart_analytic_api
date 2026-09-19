@@ -32,12 +32,15 @@ public class ProductServiceImpl implements ProductService {
 
         return productMapper.toResponse(repository.save(product));
     }
+
     @Override
     public List<ProductDtoResponse> findAll() {
         return repository.findAll().stream().map(productMapper::toResponse).toList();
     }
+
     @Override
     public ProductDtoResponse findById(Long id) { return productMapper.toResponse(get(id)); }
+
     @Override
     public ProductDtoResponse update(Long id, ProductDtoRequest request) {
         Product product = get(id);
@@ -49,6 +52,7 @@ public class ProductServiceImpl implements ProductService {
         product.setSku(request.sku());
         return productMapper.toResponse(repository.save(product));
     }
+
     @Override
     public void delete(Long id) { repository.delete(get(id)); }
 
@@ -62,6 +66,5 @@ public class ProductServiceImpl implements ProductService {
     private Category getCategory(Long id) {
         return categoryRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Categoría no encontrada: " + id));
     }
-
 
 }

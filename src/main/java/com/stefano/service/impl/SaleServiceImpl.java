@@ -27,11 +27,13 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 @RequiredArgsConstructor
 public class SaleServiceImpl implements SaleService {
+
     private static final BigDecimal IGV_RATE = new BigDecimal("0.18");
     private final SaleRepository repository;
     private final ClientRepository clientRepository;
     private final ProductRepository productRepository;
     private final SaleMapper saleMapper;
+
     @Override
     public SaleDtoResponse create(SaleDtoRequest request) {
         validateDetails(request.saleDetails());
